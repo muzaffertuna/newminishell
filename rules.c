@@ -6,7 +6,7 @@
 /*   By: mtoktas <mtoktas@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 15:01:41 by mtoktas           #+#    #+#             */
-/*   Updated: 2024/05/05 21:01:25 by mtoktas          ###   ########.fr       */
+/*   Updated: 2024/05/06 01:27:44 by mtoktas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ int ft_is_quoted(char *line, int index)
 
 int ft_rule_two(char *line, t_token **head, int *index)
 {
-    printf("head->type : %d\n", (*head)->type);
     if(ft_strchr("><", line[*index]) && !ft_is_quoted(line, *index) && (*head)->type == OPERATOR_T && ft_strlen((*head)->value) == 1 && (*index) != 0)
     {
         if(line[*index - 1] == line[*index])
@@ -64,7 +63,7 @@ int ft_rule_two(char *line, t_token **head, int *index)
 
 int ft_rule_three(char *line, t_token **head, int *index)
 {
-    if((*head)->type == OPERATOR_T && !ft_strchr(">|<", line[*index]) && (*index) != 0)
+    if(((*head)->type == OPERATOR_T) && (!ft_strchr(">|<", line[*index])) && (*index) != 0)
     {
         ft_token_delimiter(head);
         return 1;
@@ -150,8 +149,8 @@ int ft_rule_six(char *line, t_token **head, int *index)
 {
     if(ft_strchr(">|<", line[*index]) && !ft_is_quoted(line, *index))
     {
-        printf("rule 6 girdi\n");
-        ft_token_delimiter(head);
+        if((*head)->value != NULL)
+            ft_token_delimiter(head);
         (*head)->value = ft_append_char((*head)->value, line[*index]);
         (*head)->type = OPERATOR_T;
         (*index)++;
@@ -161,13 +160,15 @@ int ft_rule_six(char *line, t_token **head, int *index)
 }
 
 int ft_rule_seven(char *line, t_token **head, int *index)
-{
-    if(ft_strchr(" \t\r\v\f", line[*index]) && !ft_is_quoted(line, *index))
+{   
+    if((ft_strchr(" ", line[*index])) && (!ft_is_quoted(line, *index)))
     {
-        while (ft_strchr(" \t\r\v\f", line[*index]) && line[*index] != '\0')
+        while ((ft_strchr(" \t\r\v\f", line[*index])) && (line[*index] != '\0'))
             (*index)++;
-        if((*head)->value != NULL && line[*index] != '\0')
+        if(((*head)->value != NULL) && (line[*index] != '\0'))
+        {
             ft_token_delimiter(head);
+        }
         return (1);
     }
     return (0);

@@ -6,7 +6,7 @@
 /*   By: mtoktas <mtoktas@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 15:37:24 by mtoktas           #+#    #+#             */
-/*   Updated: 2024/05/05 20:45:15 by mtoktas          ###   ########.fr       */
+/*   Updated: 2024/05/06 01:05:17 by mtoktas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ typedef struct s_token
 	t_cmd	*cmd;
 }	t_data;*/
 //--------------------------lexer.c--------------------------
-t_token *ft_new_token(char *value, int type);
+t_token *ft_new_token(char *value);
 void	ft_token_delimiter(t_token **token);
 char	*ft_append_char(char *str, char c);
 int		ft_tokenizer(char *line,t_token **head, int *index);
