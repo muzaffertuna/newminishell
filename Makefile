@@ -1,10 +1,10 @@
 NAME = minishell
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address -g
-READLINE = -lreadline -lhistory
+READLINE = -lreadline
 LIBFT = libft.a
 LIBFT_LOC = libft/
-SRCS = main.c lexer.c
+SRCS = main.c lexer.c rules.c
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)

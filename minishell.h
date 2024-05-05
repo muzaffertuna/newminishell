@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtoktas <mtoktas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mtoktas <mtoktas@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 15:37:24 by mtoktas           #+#    #+#             */
-/*   Updated: 2024/05/04 17:11:30 by mtoktas          ###   ########.fr       */
+/*   Updated: 2024/05/05 20:45:15 by mtoktas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 # include <dirent.h>
 # include <errno.h>
 # include <readline/readline.h>
-# include <readline/history.h>
 # include <sys/ioctl.h>
+# include "libft/libft.h"
 
 # define RULE_ONE 	1
 # define RULE_TWO 	2
@@ -36,6 +36,10 @@
 # define RULE_NINE 	9
 # define RULE_TEN	10
 
+enum e_token_type{
+	OPERATOR_T,
+	WORD_T,
+};
 
 enum e_builtin
 {
@@ -66,7 +70,7 @@ enum	e_token
 
 typedef struct s_token
 {
-	enum e_token	type;
+	enum e_token_type	type;
 	char			*value;
 	struct s_token	*next;
 }	t_token;
@@ -91,14 +95,25 @@ typedef struct s_token
 	t_env	*env;
 	t_cmd	*cmd;
 }	t_data;*/
-
-//--------------------------libft.c--------------------------
-char	*ft_strjoin(const char *s1, const char *s2);
-void	ft_tokenizer(char *line,t_token **head, int index);
+//--------------------------lexer.c--------------------------
 t_token *ft_new_token(char *value, int type);
-size_t	ft_strlen(const char *s);
-char	*ft_strdup(const char *s1);
+void	ft_token_delimiter(t_token **token);
 char	*ft_append_char(char *str, char c);
-t_token		*ft_get_last_token(t_token **head);
+int		ft_tokenizer(char *line,t_token **head, int *index);
+
+//--------------------------rules.c--------------------------
+int ft_rule_one(char *line, t_token **head, int *index);
+int ft_is_quoted(char *line, int index);
+int ft_rule_two(char *line, t_token **head, int *index);
+int ft_rule_three(char *line, t_token **head, int *index);
+char	*ft_strjoin_free(char *str1, char *str2);
+int ft_rule_four(char *line, t_token **head, int *index);
+void	ft_substitution_control(char *line, t_token **head, int *index);
+int ft_rule_five(char *line, t_token **head, int *index);
+int ft_rule_six(char *line, t_token **head, int *index);
+int ft_rule_seven(char *line, t_token **head, int *index);
+int ft_rule_eight(char *line, t_token **head, int *index);
+int ft_rule_nine(char *line, int *index);
+int ft_rule_ten(char *line, t_token **head, int *index);
 #endif
 

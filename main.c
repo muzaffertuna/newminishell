@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtoktas <mtoktas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mtoktas <mtoktas@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 15:37:27 by mtoktas           #+#    #+#             */
-/*   Updated: 2024/05/04 16:53:30 by mtoktas          ###   ########.fr       */
+/*   Updated: 2024/05/05 18:44:35 by mtoktas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char *get_LOGNAME(char **envp)
 	int i = 0;
 	while (envp[i])
 	{
-		if (strncmp(envp[i], "LOGNAME=", 8) == 0)
+		if (ft_strncmp(envp[i], "LOGNAME=", 8) == 0)
 			return (ft_strjoin(envp[i] + 8, "$>"));
 		i++;
 	}
@@ -50,13 +50,14 @@ int main(int ac, char **av, char **envp)
 	head = token;
 
 	int index = 0;
-	while(line[index] != '\0')
+
+	while (index < (int)ft_strlen(line))
 	{
-		ft_tokenizer(line, &head, index);
-		index++;
+
+		ft_tokenizer(line, &head, &index);
 	}
 	t_token *tmp;
-	tmp = head;
+	tmp = token;
 	while (tmp)
 	{
 		printf("value : %s\n", tmp->value);
