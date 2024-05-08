@@ -4,7 +4,7 @@ CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address -g
 READLINE = -lreadline
 LIBFT = libft.a
 LIBFT_LOC = libft/
-SRCS = main.c lexer.c rules.c
+SRCS = main.c lexer.c rules.c env.c
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)

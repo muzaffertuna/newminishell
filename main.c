@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtoktas <mtoktas@student.42istanbul.com    +#+  +:+       +#+        */
+/*   By: mtoktas <mtoktas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 15:37:27 by mtoktas           #+#    #+#             */
-/*   Updated: 2024/05/06 01:27:05 by mtoktas          ###   ########.fr       */
+/*   Updated: 2024/05/08 18:17:50 by mtoktas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,24 +25,15 @@ char *get_LOGNAME(char **envp)
 	return (NULL);
 }
 
-void print_env(char **envp)
-{
-	int i = 0;
-	while (envp[i])
-	{
-		printf("%s\n", envp[i]);
-		i++;
-	}
-}
 
 
-
-int main(int ac, char **av, char **envp)
+/*int main(int ac, char **av, char **envp)
 {
 	// print_env(envp);
 	(void) ac;
 	(void) av;
 	char *line = readline(get_LOGNAME(envp));
+	print_env(envp);
 
 	t_token *head;
 	t_token *token = ft_new_token(NULL);
@@ -58,7 +49,33 @@ int main(int ac, char **av, char **envp)
 	tmp = token;
 	while (tmp)
 	{
-		printf("Tokens : %s\n", tmp->value);
+		printf("Tokens : %s       ", tmp->value);
+		printf(" =>  token type : %d\n", tmp->type);
 		tmp = tmp->next;
 	}
+}*/
+
+int main(int ac, char **av, char **envp)
+{
+	(void) ac;
+	(void) av;
+
+	print_env(envp);
+	printf("---------------------\n");
+	printf("---------------------\n");
+	printf("---------------------\n");
+	printf("---------------------\n");
+	printf("---------------------\n");
+	t_env *env_first = new_env();
+	load_enviroment(&env_first, envp);
+
+	t_env *tmp;
+	tmp = env_first;
+	while (tmp)
+	{
+		printf("Key : %s       ", tmp->key);
+		printf("Value : %s\n", tmp->value);
+		tmp = tmp->next;
+	}
+	return (0);
 }

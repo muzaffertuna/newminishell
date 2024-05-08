@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtoktas <mtoktas@student.42istanbul.com    +#+  +:+       +#+        */
+/*   By: mtoktas <mtoktas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 15:37:24 by mtoktas           #+#    #+#             */
-/*   Updated: 2024/05/06 01:05:17 by mtoktas          ###   ########.fr       */
+/*   Updated: 2024/05/08 18:36:05 by mtoktas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,12 +83,12 @@ typedef struct s_token
 	char			*redir_file;
 }	t_cmd;*/
 
-/*typedef struct s_env
+typedef struct s_env
 {
 	char			*key;
 	char			*value;
 	struct s_env	*next;
-}	t_env;*/
+}	t_env;
 
 /*typedef struct s_data
 {
@@ -115,5 +115,15 @@ int ft_rule_seven(char *line, t_token **head, int *index);
 int ft_rule_eight(char *line, t_token **head, int *index);
 int ft_rule_nine(char *line, int *index);
 int ft_rule_ten(char *line, t_token **head, int *index);
+
+//--------------------------main.c--------------------------
+char *get_LOGNAME(char **envp);
+
+//--------------------------env.c--------------------------
+void print_env(char **envp);
+void add_env_last(t_env **env_last);
+t_env *new_env();
+void init_env(t_env **env_last, char *key, char *value);
+void load_enviroment(t_env **first, char **envp);
 #endif
 
