@@ -6,7 +6,7 @@
 /*   By: mtoktas <mtoktas@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 15:37:27 by mtoktas           #+#    #+#             */
-/*   Updated: 2024/05/18 14:14:35 by mtoktas          ###   ########.fr       */
+/*   Updated: 2024/05/18 15:08:20 by mtoktas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char *get_LOGNAME(char **envp)
 
 
 
-/*int main(int ac, char **av, char **envp)
+int main(int ac, char **av, char **envp)
 {
 	// print_env(envp);
 	(void) ac;
@@ -53,8 +53,8 @@ char *get_LOGNAME(char **envp)
 		printf(" =>  token type : %d\n", tmp->type);
 		tmp = tmp->next;
 	}
-}*/
-
+}
+/*
 int main(int ac, char **av, char **envp)
 {
 	(void) ac;
@@ -73,11 +73,11 @@ int main(int ac, char **av, char **envp)
 	tmp = env_first;
 	while (tmp)
 	{
-		printf("Key : %s       ", tmp->key);
-		printf("Value : %s\n", tmp->value);
 		if (tmp->next == (void *)0x5f)
 			break;
+		printf("key : %s\n", tmp->key);
+		printf("value : %s\n", tmp->value);
 		tmp = tmp->next;
 	}
 	return (0);
-}
+}*/
