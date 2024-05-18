@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtoktas <mtoktas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mtoktas <mtoktas@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 15:37:27 by mtoktas           #+#    #+#             */
-/*   Updated: 2024/05/08 18:17:50 by mtoktas          ###   ########.fr       */
+/*   Updated: 2024/05/18 14:14:35 by mtoktas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ int main(int ac, char **av, char **envp)
 	{
 		printf("Key : %s       ", tmp->key);
 		printf("Value : %s\n", tmp->value);
+		if (tmp->next == (void *)0x5f)
+			break;
 		tmp = tmp->next;
 	}
 	return (0);

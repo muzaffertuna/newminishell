@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtoktas <mtoktas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mtoktas <mtoktas@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 17:22:33 by mtoktas           #+#    #+#             */
-/*   Updated: 2024/05/08 18:36:04 by mtoktas          ###   ########.fr       */
+/*   Updated: 2024/05/18 14:20:59 by mtoktas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,11 @@ void load_enviroment(t_env **first, char **envp)
 	int i = 1;
 	t_env *env_last;
 	env_last = *first;
-    init_env(first, ft_substr(envp[0], 0, strchr(envp[0], '=') - envp[0]), ft_strdup(strchr(envp[0], '=') + 1));
+    init_env(first, ft_substr(envp[0], 0, ft_strlen(ft_strchr(envp[0], '='))) - 1, ft_strdup(ft_strchr(envp[0], '=') + 1));
 	while (envp[i])
 	{
     add_env_last(&env_last);
-    init_env(&env_last, ft_substr(envp[i], 0, strchr(envp[i], '=') - envp[i]), ft_strdup(strchr(envp[i], '=') + 1));
+    init_env(&env_last, ft_substr(envp[i], 0, ft_strchr(envp[i], '=') - envp[i]), ft_strdup(ft_strchr(envp[i], '=') + 1));
     i++;
 	}
 }
