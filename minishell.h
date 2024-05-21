@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtoktas <mtoktas@student.42istanbul.com    +#+  +:+       +#+        */
+/*   By: mtoktas <mtoktas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 15:37:24 by mtoktas           #+#    #+#             */
-/*   Updated: 2024/05/18 14:10:58 by mtoktas          ###   ########.fr       */
+/*   Updated: 2024/05/21 17:19:41 by mtoktas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <stdio.h>
 # include <stdlib.h>
+# include <string.h>
 # include <unistd.h>
 # include <signal.h>
 # include <fcntl.h>
@@ -22,6 +23,7 @@
 # include <dirent.h>
 # include <errno.h>
 # include <readline/readline.h>
+# include <readline/history.h>
 # include <sys/ioctl.h>
 # include "libft/libft.h"
 
@@ -52,14 +54,6 @@ enum e_builtin
 	ENV,
 };
 
-enum e_redir
-{
-	NO_REDIR,
-	REDIR_OUT,
-	REDIR_IN,
-	REDIR_APPEND,
-};
-
 enum	e_token
 {
 	WORD,
@@ -75,13 +69,22 @@ typedef struct s_token
 	struct s_token	*next;
 }	t_token;
 
-/*typedef struct s_cmd
+typedef struct s_redir
 {
-	char			**argv;
-	enum e_builtin	builtin;
-	enum e_redir	redir;
-	char			*redir_file;
-}	t_cmd;*/
+	char 	*operator;
+	char	*operand;
+	struct s_redir	*next;
+} t_redir;
+
+typedef struct s_args
+{
+	char **args;
+	char *cmd;
+	struct s_args *next;
+	t_redir *redir;
+	t_redir *first_redir;
+	int is_pipe;
+} t_args;
 
 typedef struct s_env
 {
@@ -89,6 +92,15 @@ typedef struct s_env
 	char			*value;
 	struct s_env	*next;
 }	t_env;
+
+typedef struct t_shell
+{
+	t_args *parse;
+	t_token *token;
+	t_env *env;
+} t_shell;
+
+
 
 /*typedef struct s_data
 {
@@ -125,5 +137,24 @@ void add_env_last(t_env **env_last);
 t_env *new_env();
 void init_env(t_env **env_last, char *key, char *value);
 void load_enviroment(t_env **first, char **envp);
+
+//-----------------------------parser.c--------------------------
+int	ft_ispipe(t_token *token);
+int	ft_isredir(t_token *token);
+void	ft_arr_free(char **arr);
+int	ft_arr_len(char **arr);
+char	**ft_arr_append(char **arr, char *str);
+t_args	*ft_new_args(char *arg);
+void	ft_parse_pipe(t_args **args_head, t_shell *shell);
+void	ft_parser(t_shell *shell);
+
+//-----------------------------parse_redirection.c--------------------------
+t_redir	*ft_new_redir(char *content);
+t_redir	*ft_lst_redir_last(t_redir *head);
+void	ft_redir_delimiter(t_redir **redir, t_args **args_head);
+int	ft_check_redir(char *redir_op);
+int	ft_has_redir(t_token *token);
+void ft_parse_redir(t_token **t_head, t_args **args_head);
+
 #endif
 
