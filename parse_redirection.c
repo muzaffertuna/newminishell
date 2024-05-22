@@ -6,7 +6,7 @@
 /*   By: mtoktas <mtoktas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:44:23 by mtoktas           #+#    #+#             */
-/*   Updated: 2024/05/21 17:19:42 by mtoktas          ###   ########.fr       */
+/*   Updated: 2024/05/21 22:14:59 by mtoktas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,13 +74,13 @@ int	ft_check_redir(char *redir_op)
 
 	op = (const char *)redir_op;
 	if ((ft_strncmp("<", op, ft_strlen(op)) == 0) && ft_strlen(op) == 1)
-		return (1);
+		return (LESS);
 	if ((ft_strncmp(">", op, ft_strlen(op)) == 0) && ft_strlen(op) == 1)
-		return (1);
+		return (GREATER);
 	if ((ft_strncmp("<<", op, ft_strlen(op)) == 0) && ft_strlen(op) == 2)
-		return (1);
+		return (HEREDOC);
 	if ((ft_strncmp(">>", op, ft_strlen(op)) == 0) && ft_strlen(op) == 2)
-		return (1);
+		return (DGREATER);
 	return (0);
 }
 
@@ -91,7 +91,7 @@ int	ft_has_redir(t_token *token)
 	tmp = token;
 	while (tmp)
 	{
-		if (ft_check_redir(tmp->value) == 1)
+		if (ft_check_redir(tmp->value) != 0)
 			return (1);
 		if (tmp->type == OPERATOR_T)
 			return (0);
@@ -109,6 +109,7 @@ void ft_parse_redir(t_token **t_head, t_args **args_head)
 	}
 
 	(*args_head)->redir->operator = ft_strdup((*t_head)->value);
+	(*args_head)->redir->type = ft_check_redir((*t_head)->value);
 	if ((*t_head)->next != NULL)
 	{
 		*t_head = (*t_head)->next;

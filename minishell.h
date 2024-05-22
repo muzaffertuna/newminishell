@@ -6,7 +6,7 @@
 /*   By: mtoktas <mtoktas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 15:37:24 by mtoktas           #+#    #+#             */
-/*   Updated: 2024/05/21 17:19:41 by mtoktas          ###   ########.fr       */
+/*   Updated: 2024/05/21 22:31:30 by mtoktas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,12 @@ enum e_builtin
 	ENV,
 };
 
-enum	e_token
+enum e_redir
 {
-	WORD,
-	PIPE,
-	SEMICOLON,
-	REDIR,
+	GREATER = 1,
+	LESS,
+	DGREATER,
+	HEREDOC
 };
 
 typedef struct s_token
@@ -73,6 +73,7 @@ typedef struct s_redir
 {
 	char 	*operator;
 	char	*operand;
+	enum e_redir	type;
 	struct s_redir	*next;
 } t_redir;
 
@@ -157,4 +158,3 @@ int	ft_has_redir(t_token *token);
 void ft_parse_redir(t_token **t_head, t_args **args_head);
 
 #endif
-
