@@ -6,7 +6,7 @@
 /*   By: mtoktas <mtoktas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 17:22:33 by mtoktas           #+#    #+#             */
-/*   Updated: 2024/05/20 18:04:36 by mtoktas          ###   ########.fr       */
+/*   Updated: 2024/05/22 18:07:37 by mtoktas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ t_env *new_env()
 
 void init_env(t_env **env_last, char *key, char *value)
 {
-	(*env_last)->key = key;
+	(*env_last)->key = ft_strjoin_free(key, "=");
 	(*env_last)->value = value;
 }
 

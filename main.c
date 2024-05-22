@@ -6,7 +6,7 @@
 /*   By: mtoktas <mtoktas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 15:37:27 by mtoktas           #+#    #+#             */
-/*   Updated: 2024/05/21 17:10:08 by mtoktas          ###   ########.fr       */
+/*   Updated: 2024/05/22 17:52:29 by mtoktas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,9 +185,11 @@ int main(int ac, char **av, char **envp)
 
 	init_signal();
     using_history();
+	t_env *env_first = new_env();
+	load_enviroment(&env_first, envp);
+
 	while(1)
 	{
-
 
 	char *line = readline(get_LOGNAME(envp));
 	add_history(line);
@@ -197,7 +199,7 @@ int main(int ac, char **av, char **envp)
 	t_shell *shell = malloc(sizeof(t_shell));
 	shell->token = token;
 	shell->parse = NULL;
-
+	shell->env = env_first;
 	int index = 0;
 	while (index < (int)ft_strlen(line))
 	{
@@ -205,6 +207,7 @@ int main(int ac, char **av, char **envp)
 	}
 
 	ft_parser(shell);
+	ft_expander(shell);
 	t_args *tmp_args;
 	t_redir *tmp_redir;
 	tmp_args = shell->parse;

@@ -6,7 +6,7 @@
 /*   By: mtoktas <mtoktas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 15:37:24 by mtoktas           #+#    #+#             */
-/*   Updated: 2024/05/21 22:31:30 by mtoktas          ###   ########.fr       */
+/*   Updated: 2024/05/22 18:14:27 by mtoktas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,5 +156,21 @@ void	ft_redir_delimiter(t_redir **redir, t_args **args_head);
 int	ft_check_redir(char *redir_op);
 int	ft_has_redir(t_token *token);
 void ft_parse_redir(t_token **t_head, t_args **args_head);
+
+
+//-----------------------------expander.c-----------------------------
+int	ft_in_single_quote(char *str, int len);
+char	**ft_arr_append_free(char **arr, char *str);
+int	ft_is_special_parameter(char ***arr, char *str, int *i, size_t *k);
+int	ft_in_double_quote(char *str, int len);
+int	ft_isname(int c);
+size_t	ft_continue_if_name(char *str, int k);
+void	ft_append_lst_str(char ***arr, char *str, int *i, size_t *k);
+char	**ft_brake_into_strings(char *str);
+char	*ft_getenv(t_env *envc, char *env_var);
+void	ft_expand(char **aux, t_shell *shell);
+char	*ft_join_strings(char **aux);
+void	ft_env_var_expand(t_args **args, t_shell *shell);
+void	ft_expander(t_shell *shell);
 
 #endif
