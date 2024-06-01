@@ -6,7 +6,7 @@
 /*   By: mtoktas <mtoktas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 15:37:24 by mtoktas           #+#    #+#             */
-/*   Updated: 2024/05/22 18:14:27 by mtoktas          ###   ########.fr       */
+/*   Updated: 2024/06/01 15:06:23 by mtoktas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ typedef struct s_env
 	struct s_env	*next;
 }	t_env;
 
-typedef struct t_shell
+typedef struct s_shell
 {
 	t_args *parse;
 	t_token *token;
@@ -172,5 +172,14 @@ void	ft_expand(char **aux, t_shell *shell);
 char	*ft_join_strings(char **aux);
 void	ft_env_var_expand(t_args **args, t_shell *shell);
 void	ft_expander(t_shell *shell);
+
+
+//--------------------------------redir_expander.c------------------------------------------//
+void	ft_redir_expand(t_args **args, t_shell *shell);
+
+//--------------------------------quote_expander.c------------------------------------------//
+char	**ft_append_if_diff(char **arr, char *str, size_t *i, size_t *k);
+char	**ft_quote_removal(char *str, char **arr, int is_on_quote);
+void	ft_args_quote_removal(t_args **args);
 
 #endif
