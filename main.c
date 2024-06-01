@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtoktas <mtoktas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kkilitci <kkilitci@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 15:37:27 by mtoktas           #+#    #+#             */
-/*   Updated: 2024/05/31 16:49:45 by mtoktas          ###   ########.fr       */
+/*   Updated: 2024/06/01 20:00:51 by kkilitci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,6 +214,14 @@ int main(int ac, char **av, char **envp)
 	int j = 0;
 	while (tmp_args)
 	{
+		// for (size_t i = 0; i < 10; i++)
+		// {
+		// 	printf("key %s \n", env_first->key);
+		// 	printf("value %s \n", env_first->value);
+		// 	env_first = env_first->next;
+		// }
+		
+
 		int i = 0;
 		while (tmp_args->args[i])
 		{
@@ -234,7 +242,6 @@ int main(int ac, char **av, char **envp)
 	}
 	free(line);
 	HISTORY_STATE *history_state = history_get_history_state();
-	history_set_history_state(history_state);
     free(history_state);
 	}
 	return (0);

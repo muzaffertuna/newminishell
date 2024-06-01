@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtoktas <mtoktas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kkilitci <kkilitci@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 17:22:33 by mtoktas           #+#    #+#             */
-/*   Updated: 2024/05/22 18:07:37 by mtoktas          ###   ########.fr       */
+/*   Updated: 2024/06/01 20:41:45 by kkilitci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,15 +49,32 @@ void init_env(t_env **env_last, char *key, char *value)
 void load_enviroment(t_env **first, char **envp)
 {
 	int i = 1;
+	int temp_index;
 	t_env *env_last;
+	//t_env *env_last1;
+	
 	env_last = *first;
+	temp_index = 0;
+	//env_last1 = env_last;
 	//printf("-------------------*******%s\n",ft_substr(envp[0, 0, ft_strchr(envp[0], '=') - envp[0]));
-    init_env(first, ft_strdup(ft_substr(envp[0], 0, ft_strchr(envp[0], '=') - envp[0])), ft_strdup(ft_strchr(envp[0], '=') + 1));
+	temp_index =  ft_strchr(envp[0], '=') - envp[0];
+    init_env(first, ft_strdup(ft_substr(envp[0], 0,temp_index)), ft_strdup(ft_substr(envp[0], temp_index + 1, ft_strlen(envp[0]) - temp_index - 1)));
 
 	while (envp[i])
 	{
-    add_env_last(&env_last);
-    init_env(&env_last, ft_strdup(ft_substr(envp[i], 0, ft_strchr(envp[i], '=') - envp[i])), ft_strdup(ft_strchr(envp[i], '=') + 1));
-    i++;
+		add_env_last(&env_last);
+		temp_index = ft_strchr(envp[i], '=') - envp[i];
+		init_env(&env_last, ft_strdup(ft_substr(envp[i], 0, temp_index)), ft_strdup(ft_substr(envp[i], temp_index + 1, ft_strlen(envp[i]) - temp_index - 1)));
+		i++;
 	}
+	// printf("*************\n");
+	// for (size_t i = 0; i < 5; i++)
+	// {
+	// 	printf("%s", (*first)->key);
+	// 	printf("%s \n", (*first)->value);
+	// 	printf("%s\n", envp[i]);
+	// 	printf("*************\n");
+	// 	(*first) = (*first)->next;
+	// }
+	
 }
