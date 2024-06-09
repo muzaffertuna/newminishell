@@ -6,7 +6,7 @@
 /*   By: mtoktas <mtoktas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 17:11:03 by mtoktas           #+#    #+#             */
-/*   Updated: 2024/06/01 15:04:52 by mtoktas          ###   ########.fr       */
+/*   Updated: 2024/06/09 01:21:39 by mtoktas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -246,6 +246,6 @@ void	ft_expander(t_shell *shell)
 	ft_env_var_expand(&args, shell);
 	ft_redir_expand(&args, shell);
 	ft_args_quote_removal(&args);
-	//ft_pathname_expand(&args, shell);
-	//ft_redir_quote_removal(&args);
+	ft_pathname_expand(&args, shell);
+	ft_redir_quote_removal(&args);
 }

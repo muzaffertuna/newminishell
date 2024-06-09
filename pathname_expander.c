@@ -6,7 +6,7 @@
 /*   By: mtoktas <mtoktas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 18:34:43 by mtoktas           #+#    #+#             */
-/*   Updated: 2024/05/31 18:36:34 by mtoktas          ###   ########.fr       */
+/*   Updated: 2024/06/09 01:21:45 by mtoktas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,26 +49,73 @@ int	ft_contain_slash(char *str)
 	return (0);
 }
 
-void	ft_check_abs_path(t_shell *shell, char *str)
+void	ft_find_path(char **path, char *cmd, t_args *args)
+{
+	char	*new_path;
+	size_t	i;
+
+	i = 0;
+	if (path != NULL)
+	{
+		while (path[i])
+		{
+			new_path = ft_strjoin(path[i], "/");
+			new_path = ft_strjoin_free(new_path, cmd);
+			if (access(new_path, X_OK) == 0)
+			{
+				free(args->args[0]);
+				args->args[0] = new_path;
+				args->cmd = args->args[0];
+				break ;
+			}
+			free(new_path);
+			i++;
+		}
+		ft_arr_free(path);
+	}
+}
+
+int	ft_is_path_xok(char *str)
 {
 	DIR	*dir;
 
 	dir = opendir(str);
 	if (dir != NULL)
 	{
-		ft_error_msg(str, NULL, "is a directory");
-		shell->exit_status = 126;
+		printf("command not found");
 		closedir(dir);
+		exit(126);
+		return (1);
+	}
+	if (access(str, X_OK) == -1)
+	{
+		printf("command not found");
+		exit(126);
+		return (1);
+	}
+	return (0);
+}
+
+void	ft_check_abs_path(char *str)
+{
+	DIR	*dir;
+
+	dir = opendir(str);
+	if (dir != NULL)
+	{
+		printf("is a directory\n");
+		closedir(dir);
+		exit(126);
 	}
 	else if (access(str, F_OK) == -1)
 	{
-		ft_error_msg(str, NULL, "No such file or directory");
-		shell->exit_status = 127;
+		printf("No such file or directory\n");
+		exit(127);
 	}
 	else if (access(str, X_OK) == -1)
 	{
-		ft_error_msg(str, NULL, E_PERM);
-		shell->exit_status = 126;
+		printf("Permission Denied\n");
+		exit(127);
 	}
 }
 
@@ -76,7 +123,7 @@ int	ft_search_expand_path(char **arr, char *str, t_shell *shell, t_args *head)
 {
 	arr = ft_split(ft_getenv(shell->env, "PATH"), ':');
 	ft_find_path(arr, str, head);
-	if (ft_is_path_xok(head->args[0], shell) == 1)
+	if (ft_is_path_xok(head->args[0]) == 1)
 	{
 		free(str);
 		return (1);
@@ -101,7 +148,7 @@ void	ft_pathname_expand(t_args **args, t_shell *shell)
 			{
 				str = ft_strdup(head->args[0]);
 				if (ft_contain_slash(str) == 1)
-					ft_check_abs_path(shell, str);
+					ft_check_abs_path(str);
 				else
 					if (ft_search_expand_path(arr, str, shell, head) == 1)
 						break ;

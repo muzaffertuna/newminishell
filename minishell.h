@@ -6,7 +6,7 @@
 /*   By: mtoktas <mtoktas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 15:37:24 by mtoktas           #+#    #+#             */
-/*   Updated: 2024/06/01 15:06:23 by mtoktas          ###   ########.fr       */
+/*   Updated: 2024/06/09 01:21:47 by mtoktas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,5 +181,17 @@ void	ft_redir_expand(t_args **args, t_shell *shell);
 char	**ft_append_if_diff(char **arr, char *str, size_t *i, size_t *k);
 char	**ft_quote_removal(char *str, char **arr, int is_on_quote);
 void	ft_args_quote_removal(t_args **args);
+
+//---------------------------pathname_expander.c--------------------------
+int	ft_which_builtin(t_args *args);
+int ft_contain_slash(char *str);
+void	ft_find_path(char **path, char *cmd, t_args *args);
+int	ft_is_path_xok(char *str);
+void	ft_check_abs_path(char *str);
+int	ft_search_expand_path(char **arr, char *str, t_shell *shell, t_args *head);
+void	ft_pathname_expand(t_args **args, t_shell *shell);
+
+//---------------------------redir_quote_removal.c--------------------------
+void	ft_redir_quote_removal(t_args **args);
 
 #endif
